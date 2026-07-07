@@ -1,13 +1,14 @@
 'use client';
 
 import { Flex, NavLink } from '@mantine/core';
-import { ReactNode, useState } from 'react';
-import styles from './navBar.module.css';
 import { usePathname } from 'next/navigation';
+import { ReactNode } from 'react';
+import styles from './navBar.module.css';
 
 export default function NavBar(): ReactNode {
   const navLinks = [
     { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
     { label: 'Events', href: '/events' },
   ];
 
@@ -15,7 +16,7 @@ export default function NavBar(): ReactNode {
 
   return (
     <Flex className={styles.navBar}>
-      {navLinks.map((item, index) => (
+      {navLinks.map((item) => (
         <NavLink
           key={item.label}
           className={styles.navLink}

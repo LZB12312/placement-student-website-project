@@ -2,5 +2,6 @@
   "prettier.bracketSameLine": false,
   "prettier.jsxSingleQuote": true,
   "prettier.singleAttributePerLine": true,
-  "prettier.singleQuote": true
+  "prettier.singleQuote": true,
+  "js/ts.tsdk.path": "node_modules/typescript/lib"
 }

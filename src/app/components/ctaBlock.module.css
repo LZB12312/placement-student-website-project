@@ -1,0 +1,15 @@
+.header,
+.text {
+  color: var(--blue);
+}
+
+.wrapper {
+  width: 100%;
+}
+.grid {
+  width: 100%;
+}
+
+.column {
+  height: 100%;
+}

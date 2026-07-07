@@ -4,14 +4,7 @@
   justify-content: center;
   width: 100%;
   font-family: 'roboto', sans-serif;
-  text-transform: uppercase;
   background-color: var(--nav-background-color);
-  :hover {
-    background-color: var(--nav-hover-color);
-    * {
-      color: var(--white);
-    }
-  }
 }
 
 .navLink {
@@ -20,6 +13,9 @@
   padding: 0.2rem 1rem;
   background: none;
   width: auto;
+  :hover {
+    text-decoration: underline;
+  }
 }
 
 .wrapper {

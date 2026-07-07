@@ -3,41 +3,56 @@ export type Event = {
   time: string;
   title: string;
   venue: string;
-  tickets: string;
+  ticketPrice: string;
   ticketLink?: string;
   description: string;
   contactDetails?: { email?: string; phone?: string };
+  image?: string;
 };
 
 export const events: Event[] = [
   {
-    date: 'Saturday 3rd October 2026',
+    date: 'Saturday 22nd August 2026',
     time: '11:30 to 22:30',
     title: 'All Day Song and Music Session',
     venue: 'Tenterden Club',
-    tickets: 'No tickets are needed as the day is free but collections will be taken to pay for the use of The Tenterden Club so please give generously.',
-    description: 'Come along and take part or you are welcome to just sit and listen.  You do not have to stay all day, so just comealong when you can and pop in and out as suits you (but not while someone is performing of course). You can bring food but please do not bring drinks as The Tenterden Club will be proving the bar and hot drinks will also be available.',
+    ticketPrice: 'No tickets are needed as the day is free but collections will be taken to pay for the use of The Tenterden Club so please give generously.',
+    description: 'Come along and take part or you are welcome to just sit and listen.  You do not have to stay all day, so just come along when you can and pop in and out as suits you (but not while someone is performing of course). You can bring food but please do not bring drinks as The Tenterden Club will be proving the bar and hot drinks will also be available.',
     contactDetails: {
       email: 'info@tenterdenfolkfestival.org.uk',
     },
+    image: '/images/song-music-session.jpg',
   },
   {
-    date: 'Monday 1st September 2026',
-    time: '8pm',
-    title: 'Free Range Children with Pete Castle',
-    venue: 'Online',
-    tickets: '£5',
-    ticketLink: 'https://www.musicglue.com/tenterdenfolkfestival/tickets',
-    description: 'This will be a show about kids, not for kids. It won’t be Milly Molly Mandy or Enid Blyton, think more Lord of the Flies and come prepared for some serious misbehaviour!',
-  },
-  {
-    date: 'Friday 5th December',
-    time: '7pm',
-    title: 'A Derbyshire Christmas circa 1900',
-    venue: 'Online',
-    tickets: '£5',
+    date: 'Saturday 22nd August 2026',
+    time: '12pm',
+    title: 'Fiddle workshop',
+    venue: 'Town Hall',
+    ticketPrice: '£5',
     ticketLink: 'www.musicglue.com/tenterdenfolkfestival/tickets',
-    description: 'Carols, customs and stories from the adult writings of Alison Uttley (with a brief appearance of Little Grey Rabbit).',
+    description: "If you've always wanted to have a go at learning the fiddle and never known where to start, this one is for you!  Our tutor will take you through the basics, and there are even some instruments to borrow.",
     contactDetails: { email: 'petecastle42@gmail.com' },
+    image: '/images/fiddleworkshop.jpg',
+  },
+  {
+    date: 'Saturday 22nd August 2026',
+    time: '7pm',
+    title: 'Evening ceilidh',
+    venue: 'Town Hall',
+    ticketPrice: '£5',
+    ticketLink: 'www.musicglue.com/tenterdenfolkfestival/tickets',
+    description: 'Come and dance the night away with our Tenterden Folk Festival Ceilidh Band!',
+    contactDetails: { email: 'petecastle42@gmail.com' },
+    image: '/images/ceilidh.jpg',
+  },
+  {
+    date: 'Saturday 22nd August 2026',
+    time: '8pm',
+    title: 'Mec Lir',
+    venue: 'Town Hall Theatre',
+    ticketPrice: '£5',
+    ticketLink: 'https://www.musicglue.com/tenterdenfolkfestival/tickets',
+    description: 'The main event!  From their debut gig at one of the largest Celtic music festivals anywhere in the world – Brittany’s famed Festival Interceltique de Lorient – the exhilarating, genre-busting Mec Lir have been frenzying festival audiences for a decade.',
+    image: '/images/meclir.jpg',
   },
 ];
