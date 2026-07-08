@@ -3,7 +3,7 @@
 import PageLayout from '@/app/genericLayout';
 import { ReactNode } from 'react';
 import { events } from '../data';
-import { Button, Flex, Image, List, Stack } from '@mantine/core';
+import { Button, Image, List, Stack } from '@mantine/core';
 import styles from './events.module.css';
 
 export default function Events(): ReactNode {

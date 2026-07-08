@@ -1,11 +1,11 @@
 .event {
-  border: 1px solid red;
   width: 100%;
   margin-bottom: 5rem;
   &:last-child {
     margin: 0;
   }
 }
+
 .button {
   * {
     color: var(--white);

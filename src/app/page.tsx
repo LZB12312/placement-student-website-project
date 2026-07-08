@@ -2,7 +2,6 @@
 
 import PageLayout from '@/app/genericLayout';
 import { Stack } from '@mantine/core';
-import CtaBlock from './components/ctaBlock';
 import TextAndImageBlock from './components/textAndImageBlock';
 
 export default function Home() {
