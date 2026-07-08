@@ -3,7 +3,8 @@
 import PageLayout from '@/app/genericLayout';
 import { ReactNode } from 'react';
 import { events } from '../data';
-import { Badge, Button, Checkbox, Image, List, Stack, Accordion, Card } from '@mantine/core';
+import { Accordion, Badge, Button, Card, Checkbox, Image, Stack } from '@mantine/core';
+import Link from 'next/link';
 import styles from './events.module.css';
 
 export default function Events(): ReactNode {
@@ -12,57 +13,58 @@ export default function Events(): ReactNode {
     <PageLayout>
       <Stack justify='flex-start' align='stretch' gap='xl' w='100%'>
         <h2>Events</h2>
-        <List type='unordered' w='100%'>
+        <div className={styles.eventsList}>
           {eventsData.map((event) => (
-            <List.Item
-              key={event.title}
-              className={styles.event}
-            >
+            <div key={event.id} className={styles.event}>
               <div className={styles.cardRow}>
                 <Card shadow="sm" p="lg" radius="md" withBorder className={styles.card}>
                   <Accordion variant="separated" radius="md">
                     <Accordion.Item value={event.title}>
-                      <Accordion.Control className={styles.control}>
-                        <div className={styles.controlContent}>
-                          <div className={styles.summary}>
-                            {event.image && (
-                              <Image
-                                src={event.image}
-                                className={styles.thumbnail}
-                                w={120}
-                                h={120}
-                                radius="md"
-                                fit="cover"
-                              />
-                            )}
+                      <div className={styles.eventHeader}>
+                        <div className={styles.summary}>
+                          {event.image && (
+                            <Image
+                              src={event.image}
+                              className={styles.thumbnail}
+                              w={120}
+                              h={120}
+                              radius="md"
+                              fit="cover"
+                            />
+                          )}
 
-              r              <div className={styles.summaryContent}>
-                              <h3 className={styles.title}>{event.title}</h3>
-                              <div className={styles.badgeRow}>
-                                <Badge variant="light" color="yellow" className={styles.badge}>
-                                  {event.venue}
-                                </Badge>
-                                <Badge variant="light" color="gray" className={styles.badge}>
-                                  {event.time}
-                                </Badge>
-                              </div>
-                              <p className={styles.date}>{event.date}</p>
+                          <div className={styles.summaryContent}>
+                            <h3 className={styles.title}>
+                              <Link
+                                href={`/events/${event.id}`}
+                                className={styles.titleLink}
+                              >
+                                {event.title}
+                              </Link>
+                            </h3>
+                            <div className={styles.badgeRow}>
+                              <Badge variant="light" color="yellow" className={styles.badge}>
+                                {event.venue}
+                              </Badge>
+                              <Badge variant="light" color="gray" className={styles.badge}>
+                                {event.time}
+                              </Badge>
                             </div>
-                          </div>
-
-                          <div className={styles.rightControls}>
-                            <div
-                            
-                              className={styles.checkboxWrap}
-                              onClick={(event) => event.stopPropagation()}
-                              onMouseDown={(event) => event.stopPropagation()}
-                            >
-                              <span className={styles.checkboxLabel}>Like</span>
-                              <Checkbox aria-label="Like" className={styles.checkbox} />
-                            </div>
+                            <p className={styles.date}>{event.date}</p>
                           </div>
                         </div>
-                      </Accordion.Control>
+
+                        <div className={styles.rightControls}>
+                          <div className={styles.checkboxWrap}>
+                            <span className={styles.checkboxLabel}>Like</span>
+                            <Checkbox aria-label="Like" className={styles.checkbox} />
+                          </div>
+                          <Accordion.Control
+                            aria-label={`Show details for ${event.title}`}
+                            className={styles.control}
+                          />
+                        </div>
+                      </div>
 
                       <Accordion.Panel className={styles.panel}>
                         <p><strong>Ticket Price: {event.ticketPrice}</strong></p>
@@ -82,9 +84,9 @@ export default function Events(): ReactNode {
                   </Accordion>
                 </Card>
               </div>
-            </List.Item>
+            </div>
           ))}
-        </List>
+        </div>
       </Stack>
     </PageLayout>
   );

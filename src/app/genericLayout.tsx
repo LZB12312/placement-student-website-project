@@ -1,3 +1,5 @@
+'use client';
+
 import { Flex, Image, Stack } from '@mantine/core';
 import NavBar from './components/navBar';
 import './styles/global.css';
