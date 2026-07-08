@@ -1,4 +1,5 @@
 export type Event = {
+  id : number;
   date: string;
   time: string;
   title: string;
@@ -12,8 +13,9 @@ export type Event = {
 
 export const events: Event[] = [
   {
+    id: 1,
     date: 'Saturday 22nd August 2026',
-    time: '11:30 to 22:30',
+    time: '11:30pm',
     title: 'All Day Song and Music Session',
     venue: 'Tenterden Club',
     ticketPrice: 'No tickets are needed as the day is free but collections will be taken to pay for the use of The Tenterden Club so please give generously.',
@@ -24,9 +26,10 @@ export const events: Event[] = [
     image: '/images/song-music-session.jpg',
   },
   {
+    id: 2,
     date: 'Saturday 22nd August 2026',
     time: '12pm',
-    title: 'Fiddle workshop',
+    title: 'Fiddle Workshop',
     venue: 'Town Hall',
     ticketPrice: '£5',
     ticketLink: 'www.musicglue.com/tenterdenfolkfestival/tickets',
@@ -35,9 +38,10 @@ export const events: Event[] = [
     image: '/images/fiddleworkshop.jpg',
   },
   {
-    date: 'Saturday 22nd August 2026',
+    id: 3,
+    date: 'Sunday 23rd August 2026',
     time: '7pm',
-    title: 'Evening ceilidh',
+    title: 'Evening Ceilidh',
     venue: 'Town Hall',
     ticketPrice: '£5',
     ticketLink: 'www.musicglue.com/tenterdenfolkfestival/tickets',
@@ -46,7 +50,8 @@ export const events: Event[] = [
     image: '/images/ceilidh.jpg',
   },
   {
-    date: 'Saturday 22nd August 2026',
+    id: 4,
+    date: 'Sunday 23rd August 2026',
     time: '8pm',
     title: 'Mec Lir',
     venue: 'Town Hall Theatre',

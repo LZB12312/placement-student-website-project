@@ -1,19 +1,135 @@
 .event {
   width: 100%;
+  display: flex;
+  justify-content: center;
   margin-bottom: 5rem;
   &:last-child {
     margin: 0;
   }
 }
 
+.cardRow {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: clamp(24rem, 56vw, 44rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.control {
+  padding: 0;
+  min-height: 8rem;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.controlContent {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.summary {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+
+.thumbnail {
+  flex: 0 0 auto;
+  width: 7rem;
+  height: 7rem;
+}
+
+.summaryContent {
+  min-width: 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.35rem;
+  overflow: hidden;
+}
+
+.title {
+  color: var(--title-text-color);
+  font-size: 1.65rem;
+  line-height: 1.2;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.badgeRow {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  overflow: hidden;
+}
+
+.badge {
+  text-transform: none;
+  flex: 0 0 auto;
+  max-width: 100%;
+}
+
+.date {
+  color: var(--body-text-color);
+  font-size: 0.95rem;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.checkboxWrap {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.rightControls {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 0.35rem;
+  justify-content: center;
+}
+
+.checkboxLabel {
+  font-size: 1rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.buttonRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.checkbox {
+  flex: 0 0 auto;
+  width: auto;
+  white-space: nowrap;
+}
+
 .button {
   * {
     color: var(--white);
   }
-  margin-top: 1rem;
   width: 10rem;
-}
-
-.image {
-  margin: 1rem auto;
 }
