@@ -1,3 +1,106 @@
-.subheading {
-  margin-top: 1rem;
+.page {
+  width: 100%;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 2rem clamp(1rem, 4vw, 2rem) 3rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15rem;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.5rem;
+  border: 1px solid #d7e2cf;
+  border-radius: 0.5rem;
+  background: #f7faf5;
+  box-shadow: 0 0.5rem 1.25rem rgba(20, 35, 18, 0.08);
+}
+
+.header h2,
+.projects h2 {
+  margin: 0;
+}
+
+.header p {
+  color: #24343d;
+  font-size: 1.08rem;
+  line-height: 1.6;
+  margin: 0.75rem 0 0;
+  max-width: 42rem;
+}
+
+.headerImage {
+  width: 100%;
+  height: 12rem;
+}
+
+.sectionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.card {
+  padding: 1.25rem;
+}
+
+.card h3 {
+  color: var(--title-text-color);
+  margin: 0 0 0.75rem;
+}
+
+.card p,
+.affiliation p {
+  color: #24343d;
+  font-size: 1rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.card p + p {
+  margin-top: 0.85rem;
+}
+
+.affiliation {
+  padding: 1rem 1.25rem;
+  border-left: 0.35rem solid var(--teal);
+  border-radius: 0.35rem;
+  background: #f5faf9;
+}
+
+.projects {
+  display: grid;
+  gap: 1rem;
+}
+
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 860px) {
+  .sectionGrid,
+  .projectGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 1rem 0.75rem 2rem;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .headerImage {
+    height: 11rem;
+  }
 }

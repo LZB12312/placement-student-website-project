@@ -10,6 +10,7 @@ export default function NavBar(): ReactNode {
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Events', href: '/events' },
+    { label: 'Tickets', href: '/tickets' },
   ];
 
   const path = usePathname();

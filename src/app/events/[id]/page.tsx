@@ -9,14 +9,6 @@ function slugify(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
-function normaliseTicketLink(link?: string) {
-  if (!link) {
-    return undefined;
-  }
-
-  return link.startsWith('http') ? link : `https://${link}`;
-}
-
 export default async function Page({
   params,
 }: {
@@ -29,7 +21,6 @@ export default async function Page({
     notFound();
   }
 
-  const ticketLink = normaliseTicketLink(event.ticketLink);
   const emailLink = event.contactDetails?.email ? `mailto:${event.contactDetails.email}` : undefined;
   const phoneLink = event.contactDetails?.phone ? `tel:${event.contactDetails.phone}` : undefined;
 
@@ -78,11 +69,9 @@ export default async function Page({
             <p className={styles.description}>{event.description}</p>
 
             <Group gap="sm" className={styles.actions}>
-              {ticketLink && (
-                <Button component="a" href={ticketLink} target="_blank" rel="noreferrer" className={styles.button}>
-                  Tickets
-                </Button>
-              )}
+              <Button component="a" href={`/tickets#event-${event.id}`} className={styles.button}>
+                Tickets
+              </Button>
               {emailLink && (
                 <Button component="a" href={emailLink} variant="light" className={styles.secondaryButton}>
                   Email

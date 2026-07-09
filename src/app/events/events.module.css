@@ -1,3 +1,36 @@
+.eventsPage {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  padding: 1.75rem clamp(1rem, 5vw, 4rem) 3rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+.eventsContent {
+  position: relative;
+  z-index: 1;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.eventsContent > h2 {
+  min-height: 9rem;
+  margin: 0 0 1.75rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  border: 1px solid #d7e2cf;
+  border-radius: 0.5rem;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.82) 48%, rgba(255, 255, 255, 0.5) 100%),
+    url('/images/dancing.jpg');
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 0.5rem 1.25rem rgba(20, 35, 18, 0.08);
+}
+
 .eventsList {
   width: 100%;
   display: grid;
@@ -166,7 +199,73 @@
   width: 10rem;
 }
 
+.itinerarySection {
+  width: 100%;
+  max-width: 56rem;
+  margin: 1rem auto 0;
+  padding: 1.25rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid #dce4d5;
+  border-radius: 0.5rem;
+  background: rgba(247, 250, 245, 0.96);
+}
+
+.itineraryTitle {
+  color: var(--title-text-color);
+  font-size: 1.35rem;
+  line-height: 1.25;
+  margin: 0 0 0.35rem;
+}
+
+.itineraryText {
+  color: var(--body-text-color);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.itineraryActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.itineraryButton {
+  min-width: 12rem;
+
+  * {
+    color: var(--white);
+  }
+}
+
+.linkActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.copyStatus {
+  color: var(--darkGreen);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
 @media (max-width: 640px) {
+  .eventsPage {
+    padding: 1rem 0.75rem 2.5rem;
+  }
+
+  .eventsContent > h2 {
+    min-height: 6.5rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+
   .eventHeader {
     grid-template-columns: 1fr;
   }
@@ -187,5 +286,26 @@
 
   .rightControls {
     justify-content: flex-start;
+  }
+
+  .itinerarySection {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .itineraryActions {
+    align-items: stretch;
+  }
+
+  .itineraryButton {
+    width: 100%;
+  }
+
+  .linkActions {
+    justify-content: stretch;
+  }
+
+  .linkActions > * {
+    flex: 1 1 8rem;
   }
 }
