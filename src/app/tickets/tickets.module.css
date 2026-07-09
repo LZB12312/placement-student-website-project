@@ -38,6 +38,15 @@
 
 .backButton {
   flex: 0 0 auto;
+  border: 1px solid #b7d0aa;
+  background: rgba(255, 255, 255, 0.94) !important;
+  box-shadow: 0 0.35rem 1rem rgba(20, 35, 18, 0.1);
+  color: var(--darkGreen) !important;
+  font-weight: 700;
+}
+
+.backButton * {
+  color: var(--darkGreen) !important;
 }
 
 .ticketCard {
