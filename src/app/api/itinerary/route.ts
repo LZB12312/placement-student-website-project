@@ -1,4 +1,4 @@
-import { events } from '@/app/data';
+import { Event, events } from '@/app/data';
 import { jsPDF } from 'jspdf';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -21,6 +21,10 @@ async function getImageDataUrl(imagePath: string): Promise<string | null> {
   }
 }
 
+type PdfEvent = Omit<Event, 'id'> & {
+  id: string | number;
+};
+
 function getSelectedEventIds(request: Request): number[] {
   const requestUrl = new URL(request.url);
   const eventIds = requestUrl.searchParams.get('events');
@@ -35,9 +39,27 @@ function getSelectedEventIds(request: Request): number[] {
     .filter((eventId) => Number.isInteger(eventId));
 }
 
+function getCustomEvents(request: Request): PdfEvent[] {
+  const requestUrl = new URL(request.url);
+  const customEvents = requestUrl.searchParams.get('customEvents');
+
+  if (!customEvents) {
+    return [];
+  }
+
+  try {
+    return JSON.parse(customEvents) as PdfEvent[];
+  } catch {
+    return [];
+  }
+}
+
 export async function GET(request: Request): Promise<Response> {
   const selectedEventIds = getSelectedEventIds(request);
-  const selectedEvents = events.filter((event) => selectedEventIds.includes(event.id));
+  const selectedEvents: PdfEvent[] = [
+    ...events.filter((event) => selectedEventIds.includes(event.id)),
+    ...getCustomEvents(request),
+  ];
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();

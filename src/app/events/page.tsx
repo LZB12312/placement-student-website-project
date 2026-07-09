@@ -1,29 +1,53 @@
 'use client';
 
 import PageLayout from '@/app/genericLayout';
-import { ReactNode, useState } from 'react';
-import { events } from '../data';
+import { ReactNode, useEffect, useState } from 'react';
+import { Event, events } from '../data';
 import { Accordion, Badge, Button, Card, Checkbox, Image, Stack } from '@mantine/core';
 import Link from 'next/link';
+import { getCurrentUser, getCustomEvents, StoredUser, updateLikedEvents } from '../lib/localStore';
 import styles from './events.module.css';
 
+type DisplayEvent = Omit<Event, 'id'> & {
+  id: string;
+};
+
+const baseEvents: DisplayEvent[] = events.map((event) => ({
+  ...event,
+  id: String(event.id),
+}));
+
 export default function Events(): ReactNode {
-  const eventsData = events;
+  const [eventsData, setEventsData] = useState<DisplayEvent[]>(baseEvents);
+  const [currentUser, setCurrentUser] = useState<StoredUser | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [copyStatus, setCopyStatus] = useState('');
-  const [likedEventIds, setLikedEventIds] = useState<number[]>([]);
+  const [likedEventIds, setLikedEventIds] = useState<string[]>([]);
   const selectedCount = likedEventIds.length;
 
-  function handleLikeChange(eventId: number, checked: boolean): void {
+  useEffect(() => {
+    const user = getCurrentUser();
+    setCurrentUser(user);
+    setLikedEventIds(user?.likedEventIds ?? []);
+    setEventsData([...baseEvents, ...getCustomEvents()]);
+  }, []);
+
+  function handleLikeChange(eventId: string, checked: boolean): void {
+    if (!currentUser) {
+      setCopyStatus('Login to save liked events.');
+      return;
+    }
+
     setPdfUrl(null);
     setCopyStatus('');
     setLikedEventIds((currentIds) => {
-      if (checked) {
-        return currentIds.includes(eventId) ? currentIds : [...currentIds, eventId];
-      }
+      const nextIds = checked
+        ? currentIds.includes(eventId) ? currentIds : [...currentIds, eventId]
+        : currentIds.filter((currentId) => currentId !== eventId);
 
-      return currentIds.filter((currentId) => currentId !== eventId);
+      updateLikedEvents(currentUser.username, nextIds);
+      return nextIds;
     });
   }
 
@@ -36,7 +60,11 @@ export default function Events(): ReactNode {
     setCopyStatus('');
 
     const itineraryUrl = new URL('/api/itinerary', window.location.origin);
-    itineraryUrl.searchParams.set('events', likedEventIds.join(','));
+    itineraryUrl.searchParams.set('events', likedEventIds.filter((eventId) => !eventId.startsWith('custom-')).join(','));
+    itineraryUrl.searchParams.set(
+      'customEvents',
+      JSON.stringify(eventsData.filter((event) => likedEventIds.includes(event.id) && event.id.startsWith('custom-'))),
+    );
     setPdfUrl(itineraryUrl.toString());
     setIsGenerating(false);
   }
@@ -55,6 +83,11 @@ export default function Events(): ReactNode {
       <div className={styles.eventsPage}>
         <Stack justify='flex-start' align='stretch' gap='xl' w='100%' className={styles.eventsContent}>
           <h2>Events</h2>
+          {!currentUser && (
+            <p className={styles.loginPrompt}>
+              <Link href="/login">Login</Link> to save your liked events.
+            </p>
+          )}
           <div className={styles.eventsList}>
             {eventsData.map((event) => (
               <div key={event.id} className={styles.event}>
@@ -77,12 +110,16 @@ export default function Events(): ReactNode {
 
                             <div className={styles.summaryContent}>
                               <h3 className={styles.title}>
-                                <Link
-                                  href={`/events/${event.id}`}
-                                  className={styles.titleLink}
-                                >
-                                  {event.title}
-                                </Link>
+                                {event.id.startsWith('custom-') ? (
+                                  event.title
+                                ) : (
+                                  <Link
+                                    href={`/events/${event.id}`}
+                                    className={styles.titleLink}
+                                  >
+                                    {event.title}
+                                  </Link>
+                                )}
                               </h3>
                               <div className={styles.badgeRow}>
                                 <Badge variant="light" color="yellow" className={styles.badge}>
@@ -102,6 +139,7 @@ export default function Events(): ReactNode {
                               <Checkbox
                                 aria-label={`Like ${event.title}`}
                                 checked={likedEventIds.includes(event.id)}
+                                disabled={!currentUser}
                                 className={styles.checkbox}
                                 onChange={(changeEvent) => handleLikeChange(event.id, changeEvent.currentTarget.checked)}
                               />
@@ -115,11 +153,6 @@ export default function Events(): ReactNode {
 
                         <Accordion.Panel className={styles.panel}>
                           <p><strong>Ticket Price: {event.ticketPrice}</strong></p>
-
-
-
-
-                          
                           <p><strong>Date: {event.date}</strong></p>
                           <p>{event.description}</p>
                           <div className={styles.buttonRow}>
@@ -156,7 +189,9 @@ export default function Events(): ReactNode {
                 Generate Your itinerary
               </Button>
               {selectedCount === 0 && (
-                <p className={styles.copyStatus}>Like at least one event to generate your itinerary.</p>
+                <p className={styles.copyStatus}>
+                  {currentUser ? 'Like at least one event to generate your itinerary.' : 'Login and like at least one event to generate your itinerary.'}
+                </p>
               )}
               {pdfUrl && (
                 <div className={styles.linkActions}>

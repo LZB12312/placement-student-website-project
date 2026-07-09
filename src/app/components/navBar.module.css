@@ -1,4 +1,5 @@
 .navBar {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6,12 +7,27 @@
   font-family: 'roboto', sans-serif;
   text-transform: uppercase;
   background-color: var(--nav-background-color);
-  :hover {
-    background-color: var(--nav-hover-color);
-    * {
-      color: var(--white);
-    }
-  }
+}
+
+.primaryLinks,
+.accountLinks {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.primaryLinks {
+  justify-content: center;
+  flex: 0 1 auto;
+}
+
+.accountLinks {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
 }
 
 .navLink {
@@ -20,6 +36,14 @@
   padding: 0.2rem 1rem;
   background: none;
   width: auto;
+}
+
+.navLink:hover {
+  background-color: var(--nav-hover-color);
+}
+
+.navLink:hover * {
+  color: var(--white);
 }
 
 .wrapper {
@@ -31,4 +55,20 @@
   background-color: var(--nav-background-color);
   top: 3.2rem;
   width: 100%;
+}
+
+@media (max-width: 760px) {
+  .navBar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .accountLinks {
+    position: static;
+  }
+
+  .primaryLinks,
+  .accountLinks {
+    justify-content: center;
+  }
 }

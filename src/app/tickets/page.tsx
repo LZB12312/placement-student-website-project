@@ -1,8 +1,20 @@
+'use client';
+
 import PageLayout from '@/app/genericLayout';
 import { Badge, Button, Card, Image, Stack } from '@mantine/core';
-import { ReactNode } from 'react';
-import { events } from '../data';
+import { ReactNode, useEffect, useState } from 'react';
+import { Event, events } from '../data';
+import { getCustomEvents } from '../lib/localStore';
 import styles from './tickets.module.css';
+
+type DisplayEvent = Omit<Event, 'id'> & {
+  id: string;
+};
+
+const baseEvents: DisplayEvent[] = events.map((event) => ({
+  ...event,
+  id: String(event.id),
+}));
 
 function normaliseTicketLink(link?: string): string | undefined {
   if (!link) {
@@ -13,6 +25,12 @@ function normaliseTicketLink(link?: string): string | undefined {
 }
 
 export default function Tickets(): ReactNode {
+  const [eventsData, setEventsData] = useState<DisplayEvent[]>(baseEvents);
+
+  useEffect(() => {
+    setEventsData([...baseEvents, ...getCustomEvents()]);
+  }, []);
+
   return (
     <PageLayout>
       <main className={styles.page}>
@@ -29,7 +47,7 @@ export default function Tickets(): ReactNode {
         </section>
 
         <Stack gap="lg">
-          {events.map((event) => {
+          {eventsData.map((event) => {
             const ticketLink = normaliseTicketLink(event.ticketLink);
 
             return (
@@ -80,9 +98,11 @@ export default function Tickets(): ReactNode {
                         No ticket needed
                       </Button>
                     )}
-                    <Button component="a" href={`/events/${event.id}`} variant="light" className={styles.secondaryButton}>
-                      Event details
-                    </Button>
+                    {!event.id.startsWith('custom-') && (
+                      <Button component="a" href={`/events/${event.id}`} variant="light" className={styles.secondaryButton}>
+                        Event details
+                      </Button>
+                    )}
                   </div>
                 </div>
               </Card>
