@@ -4,7 +4,7 @@ import PageLayout from '@/app/genericLayout';
 import { Badge, Button, Card, Image, Stack } from '@mantine/core';
 import { ReactNode, useEffect, useState } from 'react';
 import { Event, events } from '../data';
-import { getCustomEvents } from '../lib/localStore';
+import { getCustomEvents, getRemovedBaseEventIds } from '../lib/localStore';
 import styles from './tickets.module.css';
 
 type DisplayEvent = Omit<Event, 'id'> & {
@@ -28,7 +28,11 @@ export default function Tickets(): ReactNode {
   const [eventsData, setEventsData] = useState<DisplayEvent[]>(baseEvents);
 
   useEffect(() => {
-    setEventsData([...baseEvents, ...getCustomEvents()]);
+    const removedEventIds = getRemovedBaseEventIds();
+    setEventsData([
+      ...baseEvents.filter((event) => !removedEventIds.includes(event.id)),
+      ...getCustomEvents(),
+    ]);
   }, []);
 
   return (

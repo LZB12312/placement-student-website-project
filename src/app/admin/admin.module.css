@@ -30,6 +30,13 @@
   padding: 1.25rem;
 }
 
+.adminGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+  gap: 1rem;
+  align-items: start;
+}
+
 .accessCard {
   min-height: 9rem;
   display: flex;
@@ -57,6 +64,47 @@
   gap: 0.75rem;
 }
 
+.manageHeader {
+  display: grid;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.manageHeader h3,
+.eventRow h4 {
+  margin: 0;
+}
+
+.manageHeader p,
+.eventRow p,
+.emptyState {
+  margin: 0;
+  color: #4f5f68;
+  line-height: 1.45;
+}
+
+.eventList {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.eventRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.85rem;
+  border: 1px solid #dfe7dc;
+  border-radius: 0.5rem;
+  background: #fbfdf9;
+}
+
+.eventRow h4 {
+  color: #15242c;
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
 .button {
   * {
     color: var(--white);
@@ -72,7 +120,12 @@
     padding: 1rem 0.75rem 2rem;
   }
 
+  .adminGrid,
   .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .eventRow {
     grid-template-columns: 1fr;
   }
 }

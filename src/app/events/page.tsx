@@ -5,7 +5,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import { Event, events } from '../data';
 import { Accordion, Badge, Button, Card, Checkbox, Image, Stack } from '@mantine/core';
 import Link from 'next/link';
-import { getCurrentUser, getCustomEvents, StoredUser, updateLikedEvents } from '../lib/localStore';
+import { getCurrentUser, getCustomEvents, getRemovedBaseEventIds, StoredUser, updateLikedEvents } from '../lib/localStore';
 import styles from './events.module.css';
 
 type DisplayEvent = Omit<Event, 'id'> & {
@@ -28,9 +28,13 @@ export default function Events(): ReactNode {
 
   useEffect(() => {
     const user = getCurrentUser();
+    const removedEventIds = getRemovedBaseEventIds();
     setCurrentUser(user);
-    setLikedEventIds(user?.likedEventIds ?? []);
-    setEventsData([...baseEvents, ...getCustomEvents()]);
+    setLikedEventIds((user?.likedEventIds ?? []).filter((eventId) => !removedEventIds.includes(eventId)));
+    setEventsData([
+      ...baseEvents.filter((event) => !removedEventIds.includes(event.id)),
+      ...getCustomEvents(),
+    ]);
   }, []);
 
   function handleLikeChange(eventId: string, checked: boolean): void {

@@ -14,6 +14,7 @@ export type StoredEvent = Omit<Event, 'id'> & {
 const usersKey = 'tenterden-users';
 const sessionKey = 'tenterden-current-user';
 const eventsKey = 'tenterden-custom-events';
+const removedBaseEventsKey = 'tenterden-removed-base-events';
 
 const adminUser: StoredUser = {
   username: 'admin',
@@ -113,6 +114,10 @@ export function getCustomEvents(): StoredEvent[] {
   return readJson<StoredEvent[]>(eventsKey, []);
 }
 
+export function getRemovedBaseEventIds(): string[] {
+  return readJson<string[]>(removedBaseEventsKey, []);
+}
+
 export function addCustomEvent(event: Omit<StoredEvent, 'id'>): StoredEvent {
   const newEvent: StoredEvent = {
     ...event,
@@ -121,4 +126,23 @@ export function addCustomEvent(event: Omit<StoredEvent, 'id'>): StoredEvent {
 
   writeJson(eventsKey, [...getCustomEvents(), newEvent]);
   return newEvent;
+}
+
+export function removeEvent(eventId: string): void {
+  if (eventId.startsWith('custom-')) {
+    writeJson(eventsKey, getCustomEvents().filter((event) => event.id !== eventId));
+  } else {
+    const removedIds = getRemovedBaseEventIds();
+
+    if (!removedIds.includes(eventId)) {
+      writeJson(removedBaseEventsKey, [...removedIds, eventId]);
+    }
+  }
+
+  const users = getUsers().map((user) => ({
+    ...user,
+    likedEventIds: user.likedEventIds.filter((likedEventId) => likedEventId !== eventId),
+  }));
+
+  saveUsers(users);
 }
