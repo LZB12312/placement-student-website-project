@@ -7,6 +7,16 @@ import { FormEvent, ReactNode, useEffect, useState } from 'react';
 import { clearCurrentUser, getCurrentUser, loginUser, registerUser, StoredUser } from '../lib/localStore';
 import styles from './login.module.css';
 
+function getSafeRedirectPath(): string | null {
+  const nextPath = new URLSearchParams(window.location.search).get('next');
+
+  if (!nextPath || !nextPath.startsWith('/') || nextPath.startsWith('//')) {
+    return null;
+  }
+
+  return nextPath;
+}
+
 export default function Login(): ReactNode {
   const router = useRouter();
   const [mode, setMode] = useState('login');
@@ -40,13 +50,12 @@ export default function Login(): ReactNode {
     }
 
     setCurrentUser(user);
-    router.push(user.role === 'admin' ? '/admin' : '/events');
+    router.push(getSafeRedirectPath() ?? (user.role === 'admin' ? '/admin' : '/events'));
   }
 
   function handleLogout(): void {
     clearCurrentUser();
-    setCurrentUser(null);
-    setMessage('You have been logged out.');
+    window.location.reload();
   }
 
   return (

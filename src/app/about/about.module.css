@@ -66,10 +66,45 @@
 }
 
 .affiliation {
+  display: grid;
+  gap: 1rem;
   padding: 1rem 1.25rem;
   border-left: 0.35rem solid var(--teal);
   border-radius: 0.35rem;
   background: #f5faf9;
+}
+
+.logoGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.logoTile {
+  min-height: 5.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem;
+  border: 1px solid #d7e2cf;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  box-shadow: 0 0.35rem 0.9rem rgba(20, 35, 18, 0.06);
+}
+
+a.logoTile {
+  transition: border-color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+}
+
+a.logoTile:hover {
+  border-color: #b7d0aa;
+  box-shadow: 0 0.5rem 1rem rgba(20, 35, 18, 0.1);
+  transform: translateY(-1px);
+}
+
+.affiliationLogo {
+  width: 100%;
+  height: 4rem;
 }
 
 .projects {
@@ -88,6 +123,10 @@
   .projectGrid {
     grid-template-columns: 1fr;
   }
+
+  .logoGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -102,5 +141,9 @@
 
   .headerImage {
     height: 11rem;
+  }
+
+  .logoGrid {
+    grid-template-columns: 1fr;
   }
 }

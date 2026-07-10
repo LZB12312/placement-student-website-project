@@ -6,16 +6,17 @@ import { Event, events } from '../data';
 import { Accordion, Badge, Button, Card, Checkbox, Image, Stack } from '@mantine/core';
 import Link from 'next/link';
 import { getCurrentUser, getCustomEvents, getRemovedBaseEventIds, StoredUser, updateLikedEvents } from '../lib/localStore';
+import { sortEventsByDate } from '../lib/eventSorting';
 import styles from './events.module.css';
 
 type DisplayEvent = Omit<Event, 'id'> & {
   id: string;
 };
 
-const baseEvents: DisplayEvent[] = events.map((event) => ({
+const baseEvents: DisplayEvent[] = sortEventsByDate(events.map((event) => ({
   ...event,
   id: String(event.id),
-}));
+})));
 
 export default function Events(): ReactNode {
   const [eventsData, setEventsData] = useState<DisplayEvent[]>(baseEvents);
@@ -31,10 +32,10 @@ export default function Events(): ReactNode {
     const removedEventIds = getRemovedBaseEventIds();
     setCurrentUser(user);
     setLikedEventIds((user?.likedEventIds ?? []).filter((eventId) => !removedEventIds.includes(eventId)));
-    setEventsData([
+    setEventsData(sortEventsByDate([
       ...baseEvents.filter((event) => !removedEventIds.includes(event.id)),
       ...getCustomEvents(),
-    ]);
+    ]));
   }, []);
 
   function handleLikeChange(eventId: string, checked: boolean): void {

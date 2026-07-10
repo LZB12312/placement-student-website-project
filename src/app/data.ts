@@ -5,7 +5,6 @@ export type Event = {
   title: string;
   venue: string;
   ticketPrice: string;
-  ticketLink?: string;
   description: string;
   contactDetails?: { email?: string; phone?: string };
   image?: string;
@@ -32,7 +31,6 @@ export const events: Event[] = [
     title: 'Fiddle Workshop',
     venue: 'Town Hall',
     ticketPrice: '£5',
-    ticketLink: 'www.musicglue.com/tenterdenfolkfestival/tickets',
     description: "If you've always wanted to have a go at learning the fiddle and never known where to start, this one is for you!  Our tutor will take you through the basics, and there are even some instruments to borrow.",
     contactDetails: { email: 'petecastle42@gmail.com' },
     image: '/images/fiddleworkshop.jpg',
@@ -44,7 +42,6 @@ export const events: Event[] = [
     title: 'Evening Ceilidh',
     venue: 'Town Hall',
     ticketPrice: '£5',
-    ticketLink: 'www.musicglue.com/tenterdenfolkfestival/tickets',
     description: 'Come and dance the night away with our Tenterden Folk Festival Ceilidh Band.  Our fabulous caller will take you through the steps so no experience necessary, just enthusiasm!  Suitable for families.',
     contactDetails: { email: 'petecastle42@gmail.com' },
     image: '/images/ceilidh.jpg',
@@ -56,7 +53,6 @@ export const events: Event[] = [
     title: 'Mec Lir',
     venue: 'Town Hall Theatre',
     ticketPrice: '£5',
-    ticketLink: 'https://www.musicglue.com/tenterdenfolkfestival/tickets',
     description: 'The main event!  From their debut gig at one of the largest Celtic music festivals anywhere in the world – Brittany’s famed Festival Interceltique de Lorient – the exhilarating, genre-busting Mec Lir have been frenzying festival audiences for a decade.',
     image: '/images/meclir.jpg',
   },

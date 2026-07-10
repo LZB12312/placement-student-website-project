@@ -49,6 +49,81 @@
   color: var(--darkGreen) !important;
 }
 
+.accessCard {
+  min-height: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.orderSummary {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #b7d0aa;
+  border-radius: 0.5rem;
+  background: #f7faf5;
+}
+
+.summaryHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.summaryHeader h3,
+.summaryRow h4 {
+  color: var(--title-text-color);
+  margin: 0;
+}
+
+.summaryHeader p,
+.summaryHeader strong,
+.summaryRow p,
+.summaryRow span,
+.summaryRow strong {
+  color: #24343d;
+  margin: 0;
+}
+
+.summaryHeader strong {
+  font-size: 1.15rem;
+  white-space: nowrap;
+}
+
+.summaryList {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.summaryRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid #d7e2cf;
+}
+
+.summaryRow h4 {
+  font-size: 1rem;
+}
+
+.summaryRow p {
+  color: #4f5f68;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.summaryActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 .ticketCard {
   scroll-margin-top: 1rem;
   display: grid;
@@ -114,20 +189,58 @@
   margin: 0;
 }
 
+.ticketSummary {
+  color: #4f5f68 !important;
+  margin-top: 0.35rem !important;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-end;
   gap: 0.75rem;
 }
 
+.quantity {
+  flex: 0 0 7.5rem;
+  width: 7.5rem;
+}
+
+.total {
+  color: #24343d;
+  flex: 0 0 auto;
+  font-weight: 700;
+  line-height: 2.25rem;
+  margin: 0;
+}
+
+.reserved {
+  color: var(--darkGreen);
+  flex: 1 1 100%;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+}
+
 .button {
+  flex: 0 0 auto;
+
   * {
     color: var(--white);
   }
 }
 
 .secondaryButton {
+  flex: 0 0 auto;
   color: var(--teal) !important;
+  white-space: nowrap;
+}
+
+.message {
+  color: #24343d;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
 }
 
 @media (max-width: 700px) {
@@ -138,6 +251,20 @@
     padding: 1rem;
   }
 
+  .summaryHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .summaryHeader strong {
+    white-space: normal;
+  }
+
+  .summaryRow {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
   .ticketCard {
     grid-template-columns: 1fr;
     padding: 1rem;
@@ -146,5 +273,15 @@
   .eventImage {
     height: 12rem;
     min-height: 12rem;
+  }
+
+  .quantity {
+    flex-basis: 100%;
+    width: 100%;
+  }
+
+  .total {
+    line-height: 1.4;
+    width: 100%;
   }
 }

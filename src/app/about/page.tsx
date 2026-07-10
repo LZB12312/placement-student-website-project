@@ -5,6 +5,33 @@ import { ReactNode } from 'react';
 import { Card, Image } from '@mantine/core';
 import styles from './about.module.css';
 
+const affiliationLogos = [
+  {
+    alt: 'English Folk Dance and Song Society',
+    href: 'https://www.efdss.org/',
+    src: '/images/institutions/efdss-logo-red.svg',
+  },
+  {
+    alt: 'The Ashford Federation of the Arts',
+    src: '/images/institutions/ashford-federation-arts-logo.svg',
+  },
+  {
+    alt: 'Association of Festival Organisers',
+    href: 'https://www.aiforg.com/about',
+    src: '/images/institutions/association-festival-organisers-logo.svg',
+  },
+  {
+    alt: 'Produced in Kent',
+    href: 'https://www.producedinkent.co.uk/',
+    src: '/images/institutions/produced-in-kent-logo.png',
+  },
+  {
+    alt: 'Fundraising Regulator',
+    href: 'https://www.fundraisingregulator.org.uk/',
+    src: '/images/institutions/fundraising-regulator-badge.png',
+  },
+];
+
 export default function Events(): ReactNode {
   return (
     <PageLayout>
@@ -54,6 +81,35 @@ export default function Events(): ReactNode {
           <p>
             The Trust is affiliated to the English Folk Dance and Song Society and a member of The Ashford Federation of the Arts, The Association of Festival Organisers, and Produced in Kent. It is registered with The Fundraising Regulator.
           </p>
+          <div className={styles.logoGrid}>
+            {affiliationLogos.map((logo) => {
+              const logoImage = (
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  className={styles.affiliationLogo}
+                  fit="contain"
+                />
+              );
+
+              return logo.href ? (
+                <a
+                  key={logo.alt}
+                  href={logo.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.logoTile}
+                  aria-label={logo.alt}
+                >
+                  {logoImage}
+                </a>
+              ) : (
+                <div key={logo.alt} className={styles.logoTile}>
+                  {logoImage}
+                </div>
+              );
+            })}
+          </div>
         </section>
 
         <section className={styles.projects}>
